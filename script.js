@@ -24,7 +24,11 @@ function waitForClick(){
 //this function fetches information for the random top rated charities on the home page
 function fetchForTRC(){
 
-  fetch(`https://api.data.charitynavigator.org/v2/Organizations?app_id=52f5ab7b&app_key=8b5bffc3a1fe815f4e114e1feaa433d3&minRating=4
+
+
+
+
+ fetch(`https://api.data.charitynavigator.org/v2/Organizations?app_id=52f5ab7b&app_key=8b5bffc3a1fe815f4e114e1feaa433d3&minRating=4
 `)
 .then(response => response.json())
 .then(data => updateTopRatedCharities(data))
@@ -138,10 +142,16 @@ $('.topRatedList').append(`
 //this function uses the geolocator api to get the users ip address
 function fetchIPAddress(){
 
+
+
+
+
 fetch('https://freegeoip.app/json/')
 .then(response => response.json())
 .then(data => showIP(data))
-}
+
+
+ }
 
 
 function showIP(data){
@@ -154,6 +164,9 @@ fetchForTRNY(data);
 //this function fetches information for the random top rated charities on the home page
  function fetchForTRNY(data){
 
+
+
+
   fetch(`https://api.data.charitynavigator.org/v2/Organizations?app_id=52f5ab7b&app_key=8b5bffc3a1fe815f4e114e1feaa433d3&state=${data.region_code}&city=${data.city}&minRating=4`)
 .then(response => response.json())
 .then(data => updateTRNYdom(data))
@@ -164,6 +177,7 @@ fetchForTRNY(data);
 
 //this function updates the top rated section of the DOM
 function updateTRNYdom(data){
+
 
 
   
@@ -272,7 +286,6 @@ function formatQueryParams(params){
 function fetchData(search, state, minRatingNum, maxRatingNum, cityParam, sortBy){
     console.log("fetchData Ran");
 
-
      let params = {
         app_id: app_id,
         app_key: app_key,
@@ -293,11 +306,12 @@ function fetchData(search, state, minRatingNum, maxRatingNum, cityParam, sortBy)
     let searchURL = url + searchQuery;
     
 
-    fetch(searchURL)
+
+     fetch(searchURL)
     .then(response =>response.json() )
     .then(data => updateDOM(data))
     .catch(err => {
-      $('.charityItem').html('Sorry but it looks like there is an error with your search! Check your search options and try again.')
+      $('.charityItem').html(`${err.message}`)
     })
     
 
@@ -309,10 +323,7 @@ function fetchData(search, state, minRatingNum, maxRatingNum, cityParam, sortBy)
 function updateDOM(data){
     console.log('updateDOM ran')
   
-  console.log(data[0]);
-  console.log(data[0])
-  console.log(data[1]);
-  console.log(data[2]);
+  
 
   
 
@@ -325,15 +336,71 @@ function updateDOM(data){
     else{
 
       //updates dom with searched charities 
-    $('.charityItem').html('');
+    // $('.charityItem').html('');
 
-    for(let i=0; i<data.length; i++){
-        $('.charityItem').append(`
-        <li>
-        ${data[i].charityName} <br>
-        </li>
-        `)
-    }
+for(let i=0; i<data.length;i++){
+
+if(data[i].websiteURL === null) {
+data[i].websiteURL = "There is no registered webiste in the database. Try searching the charity name on google."
+}
+if(data[i].tagLine === null){
+  data[i].tagLine = "This charity has no registered slogan!"
+}
+
+if(data[i].mission === null){
+  data[i].mission = "This charity has no registered mission!"
+}
+
+}
+
+console.log(data[0])
+
+
+let itemsPerPage = $('#pageSize').val();
+
+
+
+$(function() {
+
+
+  (function(name) {
+    var container = $('#pagination-' + name);
+    container.pagination({
+      dataSource: data,
+      locator: 'items',
+      totalNumber: 5,
+      pageSize: itemsPerPage,
+			showPageNumbers: true,
+			showPrevious: true,
+			showNext: true,
+			showNavigator: true,
+			showFirstOnEllipsisShow: true,
+			showLastOnEllipsisShow: true,
+   
+      callback: (response, pagination) => {
+        //window.console && console.log(22, response, pagination);
+        var dataHtml = '<ul>';
+
+        $.each(response,  (index, item) => {
+          dataHtml += '<li class="searchResult">' + '<b>' + item.charityName + '</b>' + '<br> <b>Slogan: </b>' + item.tagLine + '<br> <b> Website: </b> <a href="' + item.websiteURL + '">' + item.websiteURL + '</a></li>';
+        });
+
+        dataHtml += '</ul>';
+
+        container.prev().html(dataHtml);
+      }
+    })
+  })('demo2');
+})
+
+
+
+
+
+
+
+
+
 
     }
     
@@ -344,11 +411,21 @@ function updateDOM(data){
 
 
 
- $('.stink').on('click', e => {
+
+
+ $('.searchButton').on('click', e => {
    $('.additionalSearch').slideToggle(200)
     })
 
 
+
+
+
+$('.menuIcon').on('click', e =>{
+
+$('navItems').toggleClass("hideThis");
+
+});
 
 
 
