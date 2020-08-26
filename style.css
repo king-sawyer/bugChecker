@@ -48,11 +48,38 @@ h1 , h2{
 
 }
 
+.radioButtons{
+text-align: center;}
+
+
+
 
 .navLinks{
   display: flex;
-  background-color: rgb(69, 69, 71);
-}
+  flex-direction: row;
+  justify-content: space-between;
+  
+  }
+
+  .navLinks:first-of-type {
+    margin-left: 10px;
+  }
+
+
+  .navLinks:last-of-type {
+    margin-right: 20px;
+  }
+
+
+  
+  .navigationMenu{
+    background-color: rgb(69,69,71);
+  }
+
+
+
+
+
 .navItem{
   text-decoration: none;
   font-weight: 700;
@@ -66,12 +93,15 @@ h1 , h2{
     border: 2px solid #666;
     border-radius: 5px;
     background-color: whitesmoke;
-    width: 40%;
+    margin: 10px;
+    width: inherit;
+    height: inherit;
 }
 
 
 .searchInfo{
   margin-top: 20px;
+ 
 }
 
 .searchParameters{
@@ -87,6 +117,8 @@ h1 , h2{
   display:flex;
   margin-bottom: 2%;
   justify-content: space-evenly;
+  flex-direction: column;
+  margin: 5%;
 }
 
 
@@ -114,6 +146,15 @@ h1 , h2{
   display:none;
 }
 
+.infoAbout{
+background-color: whitesmoke;
+border: 2px solid #666;
+border-radius: 2px;
+margin: 5%;
+padding: 10px;
+color: black;
+text-shadow: none;
+}
 
 
 
@@ -124,34 +165,11 @@ h1 , h2{
       display: none;
     }
 
-    .navLinks{
-    display: flex;
-    flex-direction: row;
-    /* align-content: space-between; */
-    justify-content: space-between;
-    
-    }
-
-    .navLinks:first-of-type {
-      margin-left: 10px;
+    .flexList{
+      flex-direction: row;
     }
 
 
-    .navLinks:last-of-type {
-      margin-right: 20px;
-    }
-
-
-    
-    .navigationMenu{
-      background-color: rgb(69,69,71);
-    }
-
-    /* .navItem{
-      flex: 1;
-    } */
-
-   
 
 }
 

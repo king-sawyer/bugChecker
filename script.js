@@ -382,7 +382,7 @@ $(function() {
         var dataHtml = '<ul>';
 
         $.each(response,  (index, item) => {
-          dataHtml += '<li class="searchResult">' + '<b>' + item.charityName + '</b>' + '<br> <b>Slogan: </b>' + item.tagLine + '<br> <b> Website: </b> <a href="' + item.websiteURL + '">' + item.websiteURL + '</a></li>';
+          dataHtml += '<li class="searchResult">' + '<b>' + item.charityName + '</b>' + '<br> <b>Slogan: </b>' + item.tagLine + '<br> <b> Website: </b>' + item.websiteURL + '</li>';
         });
 
         dataHtml += '</ul>';
